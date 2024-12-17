@@ -33,13 +33,13 @@ public class CustomerService {
      * @return LinkedHashMap
      */
     public Map<Integer, Customer> getAllCustomers() {
-        if (customerRepository.allCustomers().isEmpty()) {
+        if (customerRepository.getAll().isEmpty()) {
             System.out.println("Нет зарегестрированых пользователей");
         }
-        for (Map.Entry<Integer, Customer> entry : customerRepository.allCustomers().entrySet()) {
+        for (Map.Entry<Integer, Customer> entry : customerRepository.getAll().entrySet()) {
             System.out.println("id - " + entry.getKey() + " / " + entry.getValue());
         }
-        return customerRepository.allCustomers();
+        return customerRepository.getAll();
     }
 
     /**
@@ -53,7 +53,7 @@ public class CustomerService {
     public Customer getCustomerById(Integer id) throws CustomerNotFoundException {
 
         if (customerRepository.getById(id) == null) {
-            System.out.println(new CustomerNotFoundException().getMessage());
+            System.out.println(new CustomerNotFoundException("Такого пользователя нет"));
             return null;
         } else {
             System.out.println(customerRepository.getById(id));

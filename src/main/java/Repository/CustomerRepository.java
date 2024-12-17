@@ -18,7 +18,7 @@ public class CustomerRepository {
      * Метод устанавливает позльзователю ID сновываясь на порядке добавления его в базу
      * Дальше добавляет в базу и выводит пользователю его ID
      *
-     * @param customer бьект тип Customer
+     * @param customer oбьект тип Customer
      * @return Customer
      */
     public Customer add(Customer customer) {
@@ -33,7 +33,7 @@ public class CustomerRepository {
      *
      * @return LinkedHashMap
      */
-    public Map<Integer, Customer> allCustomers() {
+    public Map<Integer, Customer> getAll() {
         return customerLinkedHashMap;
     }
 
