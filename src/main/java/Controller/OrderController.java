@@ -1,4 +1,4 @@
-package Conroller;
+package Controller;
 
 public class OrderController {
 }

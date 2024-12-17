@@ -1,4 +1,4 @@
-package Reporitory;
+package Repository;
 
 public class ProductRepository {
 }

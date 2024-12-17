@@ -54,7 +54,7 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "Customer{ " + name + '\'' + " type: " + customerType + " }";
+        return "Клиент: " + name + " | " + "type: " + customerType;
     }
 }
 
