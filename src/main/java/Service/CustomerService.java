@@ -5,7 +5,7 @@ import Model.Customer.Customer;
 import Model.Customer.CustomerType;
 import Repository.CustomerRepository;
 
-import java.util.Map;
+import java.util.List;
 
 public class CustomerService {
     private final CustomerRepository customerRepository;
@@ -28,36 +28,38 @@ public class CustomerService {
     }
 
     /**
-     * Метод проверят что в базе данных есть пользователи и выводит их с помощью Map.Entry
+     * Метод проверят что в базе данных есть пользователи и выводит их
      *
-     * @return LinkedHashMap
+     * @return List<String></String>
      */
-    public Map<Integer, Customer> getAllCustomers() {
+    public List<String> getAllCustomers() {
         if (customerRepository.getAll().isEmpty()) {
             System.out.println("Нет зарегестрированых пользователей");
-        }
-        for (Map.Entry<Integer, Customer> entry : customerRepository.getAll().entrySet()) {
-            System.out.println("id - " + entry.getKey() + " / " + entry.getValue());
+        } else {
+            customerRepository.getAll().forEach(System.out::println);
         }
         return customerRepository.getAll();
     }
 
     /**
-     * Находит покупателя по ID
+     * Находит покупателя по ID.
      *
-     * @param id параметр типа int. Присваивается в CustomerRepository добавлении в базу.
-     *           При окончании регистрации пользователю показывается его ID
-     * @return Customer
+     * @param id параметр типа int.
+     * @return List строк
      * @throws CustomerNotFoundException выбрасываемое исключение при ненахождении пользователя по его ID
      */
-    public Customer getCustomerById(Integer id) throws CustomerNotFoundException {
-
-        if (customerRepository.getById(id) == null) {
+    public List<String> getCustomerById(Long id) {
+        if (customerRepository.getAll() == null || customerRepository.getAll().size() < id) {
             System.out.println(new CustomerNotFoundException("Такого пользователя нет"));
             return null;
         } else {
-            System.out.println(customerRepository.getById(id));
-            return customerRepository.getById(id);
+            for (String str : customerRepository.getAll()) {
+                String[] partsOfCustomers = str.split(";");
+                if (Long.parseLong(partsOfCustomers[0]) == id) {
+                    System.out.println(str);
+                }
+            }
+            return customerRepository.getAll();
         }
     }
 }
