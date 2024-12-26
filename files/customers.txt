@@ -1,0 +1,4 @@
+1;Alice;NEW
+2;Bob;VIP
+3;Gleb;VIP
+4;Oleg;NEW

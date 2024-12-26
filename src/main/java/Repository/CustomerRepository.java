@@ -2,48 +2,81 @@ package Repository;
 
 import Model.Customer.Customer;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+import java.util.List;
+import java.util.Objects;
 
 public class CustomerRepository {
-    private final LinkedHashMap<Integer, Customer> customerLinkedHashMap;
-    private Integer customerCount;
+
+    private final String fileName = "customers.txt";
+    private final String fileIdPath = "C:\\Users\\User\\IdeaProjects\\Team-Project-\\files\\customers_id.txt";
+    private final String filePath = "C:\\Users\\User\\IdeaProjects\\Team-Project-\\files\\" + fileName;
+    private Path path;
+    private Path pathId;
+    private Customer customer;
 
     public CustomerRepository() {
-        this.customerLinkedHashMap = new LinkedHashMap<>();
-        customerCount = 0;
+        path = Path.of(filePath);
+        pathId = Path.of(fileIdPath);
     }
 
     /**
-     * Метод устанавливает позльзователю ID сновываясь на порядке добавления его в базу
-     * Дальше добавляет в базу и выводит пользователю его ID
+     * Вызывает метод setId() и присваиват последнее значение переменной ID, роверяет наличие файла в котором
+     * хранятся ID(если его нет, создает), после перезаписывает/записывает значение в этом файле.
+     * Так же добавляет в соответствующий файл обьект Customer c присвоенным ему ID
      *
-     * @param customer oбьект тип Customer
+     * @param customer Обьект типа Customer с ID = null
      * @return Customer
      */
     public Customer add(Customer customer) {
-        customer.setId(++customerCount);
-        customerLinkedHashMap.put(customer.getId(), customer);
-        System.out.println("Покупатель добавлен, присвоен ID - " + customer.getId());
+        try {
+            Long id = setId().getLast().getId();
+            if (!Files.exists(pathId)) {
+                Files.createFile(pathId);
+            }
+            Files.write(pathId, id.toString().getBytes());
+            customer.setId(++id);
+            Files.write(path, (customer + "\n").getBytes(), StandardOpenOption.APPEND);
+            System.out.println("Покупатель добавлен, присвоен ID - " + customer.getId());
+        } catch (IOException e) {
+            System.out.println(e);
+        }
         return customer;
     }
 
     /**
-     * Выводи всех пользователей
+     * Делает из файла с покупателями List строк
      *
-     * @return LinkedHashMap
+     * @return List строк
      */
-    public Map<Integer, Customer> getAll() {
-        return customerLinkedHashMap;
+    public List<String> getAll() {
+        try {
+            return Files.readAllLines(path).stream()
+                    .toList();
+        } catch (IOException e) {
+            System.out.println(e);
+            return null;
+        }
     }
 
-    /**
-     * Ищет пользователся по его ID
+
+    /**Делает из файла с покупателями List, после вызывает конструктор Customer от строк и List`a, и вобратно
+     * собирает в List
      *
-     * @param id параметр типа int
-     * @return Customer
+     * @return List<>Customer</>
      */
-    public Customer getById(Integer id) {
-        return customerLinkedHashMap.get(id);
+    public List<Customer> setId() {
+        try {
+            return Files.readAllLines(path).stream()
+                    .map(Customer::new)
+                    .toList();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
+
 }
