@@ -52,15 +52,15 @@ public class ProductController {
                     System.out.println("CLOTHING - Одежда");
                     typeOfProduct = scanner.nextLine();
                     switch (typeOfProduct) {
-                        case "FOOD" -> productService.addProduct(name, ProductType.FOOD);
-                        case "ELECTRONICS" -> productService.addProduct(name, ProductType.ELECTRONICS);
-                        case "CLOTHING" -> productService.addProduct(name, ProductType.CLOTHING);
+                        case "FOOD" -> productService.addProduct(name, ProductType.FOOD, Integer.parseInt(scanner.nextLine()));
+                        case "ELECTRONICS" -> productService.addProduct(name, ProductType.ELECTRONICS, Integer.parseInt(scanner.nextLine()));
+                        case "CLOTHING" -> productService.addProduct(name, ProductType.CLOTHING, Integer.parseInt(scanner.nextLine()));
                         default -> {
                             while (!(typeOfProduct.equals("FOOD") || typeOfProduct.equals("ELECTRONICS") || typeOfProduct.equals("CLOTHING"))) {
                                 System.out.println(new InputMismatchException("Неверный ввод"));
                                 typeOfProduct = scanner.nextLine();
                             }
-                            productService.addProduct(name, ProductType.valueOf(typeOfProduct));
+                            productService.addProduct(name, ProductType.valueOf(typeOfProduct), Integer.parseInt(scanner.nextLine()));
                         }
                     }
                 }

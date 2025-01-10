@@ -22,8 +22,8 @@ public class ProductService {
      * @param productType тип принимаемого значения ProductType(enum) FOOD/ELECTRONIC/CLOTHING
      * @return Product
      */
-    public Product addProduct(String productName, ProductType productType) {
-        Product product = new Product(null, productName, productType);
+    public Product addProduct(String productName, ProductType productType, Integer price) {
+        Product product = new Product(null, productName, productType, price);
         productRepository.add(product);
         return product;
     }
