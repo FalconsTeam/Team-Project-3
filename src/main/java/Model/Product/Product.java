@@ -1,21 +1,18 @@
 package Model.Product;
 
-import Model.Customer.Customer;
-import Model.Customer.CustomerType;
-
 import java.util.Objects;
 
 public class Product {
     private Integer id;
     private String name;
-    private ProductType productType;
-    private Integer price;
+    private final ProductType productType;
+    private Double price;
 
-    public Product(Integer id, String name, ProductType productType, Integer price) {
+    public Product(Integer id, String name, Double price, ProductType productType) {
         this.id = id;
         this.name = name;
-        this.productType = productType;
         this.price = price;
+        this.productType = productType;
     }
 
 
@@ -31,10 +28,6 @@ public class Product {
         return productType;
     }
 
-    public void setProductType(ProductType productType) {
-        this.productType = productType;
-    }
-
     public String getName() {
         return name;
     }
@@ -43,11 +36,11 @@ public class Product {
         this.name = name;
     }
 
-    public Integer getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -67,6 +60,14 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Товар: " + name + " | " + "type: " + productType + " | " + "price: " + price;
+        return getId() + ";" + getName() + ";" + getPrice() + ";" + getProductType();
+    }
+
+    public Product(String productStr) {
+        String[] parts = productStr.split(";");
+        this.id = Integer.parseInt(parts[0]);
+        this.name = parts[1];
+        this.price = Double.parseDouble(parts[2]);
+        this.productType = ProductType.valueOf(parts[3]);
     }
 }

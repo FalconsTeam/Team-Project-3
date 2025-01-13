@@ -5,6 +5,7 @@ import Model.Product.ProductType;
 import Repository.ProductRepository;
 import Exception.ProductNotFoundException;
 
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -22,8 +23,8 @@ public class ProductService {
      * @param productType тип принимаемого значения ProductType(enum) FOOD/ELECTRONIC/CLOTHING
      * @return Product
      */
-    public Product addProduct(String productName, ProductType productType, Integer price) {
-        Product product = new Product(null, productName, productType, price);
+    public Product addProduct(String productName, ProductType productType, Double price) {
+        Product product = new Product(null,productName,price,productType);
         productRepository.add(product);
         return product;
     }
@@ -33,12 +34,11 @@ public class ProductService {
      *
      * @return LinkedHashMap
      */
-    public Map<Integer, Product> getAllProducts() {
+    public List<String> getAllProducts() {
         if (productRepository.getAll().isEmpty()) {
-            System.out.println("Нет зарегистрированных товаров");
-        }
-        for (Map.Entry<Integer, Product> entry : productRepository.getAll().entrySet()) {
-            System.out.println("id - " + entry.getKey() + " / " + entry.getValue());
+            System.out.println("Список товаров пуст!");
+        } else {
+            productRepository.getAll().forEach(System.out::println);
         }
         return productRepository.getAll();
     }
@@ -51,14 +51,19 @@ public class ProductService {
      * @return Product
      * @throws ProductNotFoundException выбрасываемое исключение при ненахождении товара по его ID
      */
-    public Product getProductById(Integer id) throws ProductNotFoundException {
+    public List getProductById(Integer id) {
 
-        if (productRepository.getById(id) == null) {
-            System.out.println(new ProductNotFoundException("Такого пользователя нет"));
+        if (productRepository.getAll() == null || productRepository.getAll().size() < id) {
+            System.out.println(new ProductNotFoundException("Такого товара нет"));
             return null;
         } else {
-            System.out.println(productRepository.getById(id));
-            return productRepository.getById(id);
+            for (String str : productRepository.getAll()) {
+                String[] partsOfCustomers = str.split(";");
+                if (Long.parseLong(partsOfCustomers[0]) == id) {
+                    System.out.println(str);
+                }
+            }
+            return productRepository.getAll();
         }
     }
 

@@ -2,19 +2,21 @@ package Repository;
 
 import Model.Product.Product;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.logging.Logger;
-
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+import java.util.List;
 
 
 public class ProductRepository {
-    private final LinkedHashMap<Integer, Product> productLinkedHashMap;
     private Integer productCount;
+    private final String filePath;
+    private final Path path;
 
     public ProductRepository() {
-        this.productLinkedHashMap = new LinkedHashMap<>();
-        productCount = 0;
+        filePath = "C:\\Users\\User\\IdeaProjects\\Team-Project-\\files\\products.txt";
+        path = Path.of(filePath);
     }
 
     /**
@@ -25,9 +27,16 @@ public class ProductRepository {
      * @return Product
      */
     public Product add(Product product) {
-        product.setId(++productCount);
-        productLinkedHashMap.put(product.getId(), product);
-        System.out.println("Товар добавлен, присвоен ID - " + product.getId());
+        product.setId(getById().getLast().getId() + 1);
+        try {
+            if (!Files.exists(path)) {
+                Files.createFile(path);
+            }
+            Files.write(path, (product + "\n").getBytes(), StandardOpenOption.APPEND);
+            System.out.println("Товар добавлен: id - " + product.getId());
+        } catch (IOException e) {
+            System.out.println(e);
+        }
         return product;
     }
 
@@ -36,17 +45,27 @@ public class ProductRepository {
      *
      * @return LinkedHashMap
      */
-    public Map<Integer, Product> getAll() {
-        return productLinkedHashMap;
+    public List<String> getAll() {
+        try {
+            return Files.readAllLines(path).stream()
+                    .toList();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
      * Ищет товар по его ID
      *
-     * @param id параметр типа int
      * @return Product
      */
-    public Product getById(Integer id) {
-        return productLinkedHashMap.get(id);
+    public List<Product> getById() {
+        try {
+            return Files.readAllLines(path).stream()
+                    .map(Product::new)
+                    .toList();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
