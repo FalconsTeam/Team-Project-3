@@ -76,7 +76,7 @@ public class CustomerController {
                     }
                     customerService.getCustomerById(inputID);
                 }
-                case "4" -> start();
+                case "4" -> new MainController().startController();
                 default -> System.out.println(new InputMismatchException("Не верный ввод"));
             }
         }
