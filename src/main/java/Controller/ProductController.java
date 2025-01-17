@@ -87,7 +87,7 @@ public class ProductController {
                     Integer inputID = scanner.nextInt();
                     productService.getProductById(inputID);
                 }
-                case "4" -> start();
+                case "4" -> new MainController().startController();
                 default -> System.out.println(new InputMismatchException("Неверный ввод"));
             }
         }

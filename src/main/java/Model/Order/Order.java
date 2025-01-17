@@ -2,7 +2,7 @@ package Model.Order;
 
 import Model.Customer.Customer;
 
-import java.util.List;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class Order {
@@ -10,12 +10,21 @@ public class Order {
     private Long orderId;
     private Customer customer;
     private Long customerId;
-//    private Product product
+    private String[] productId;
 
+    public String[] getProductId() {
+        return productId;
+    }
 
-    public Order(Long customerId, OrderStatus orderType, List<Integer> productId) {
-        this.orderStatus = orderType;
+    public void setProductId(String[] productId) {
+        this.productId = productId;
+    }
+
+    public Order(Long orderId, Long customerId, OrderStatus orderStatus, String... productId) {
+        this.orderId = orderId;
+        this.orderStatus = orderStatus;
         this.customerId = customerId;
+        this.productId = productId;
     }
 
     public OrderStatus getOrderStatus() {
@@ -65,7 +74,15 @@ public class Order {
 
     @Override
     public String toString() {
-        return getOrderId() + ";" + getCustomerId() + ";" + getOrderStatus();
+        return getOrderId() + ";" + getCustomerId() + ";" + getOrderStatus() + ";" + Arrays.toString(getProductId()).replaceAll("[^0-9,]", "");
+    }
+
+    public Order(String order) {
+        String[] partsOfOrder = order.split(";");
+        this.orderId = Long.valueOf(partsOfOrder[0]);
+        this.customerId = Long.valueOf(partsOfOrder[1]);
+        this.orderStatus = OrderStatus.valueOf(partsOfOrder[2]);
+        this.productId = partsOfOrder[3].split(",");
     }
 
 }
