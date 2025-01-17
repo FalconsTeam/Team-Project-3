@@ -1,16 +1,20 @@
 package Service;
 
+import Controller.OrderController;
 import Exception.OrderNotFoundException;
 import Model.Order.OrderStatus;
 import Repository.CustomerRepository;
 import Repository.OrderRepository;
 import Repository.ProductRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 public class OrderService {
+    private final Logger logger = LoggerFactory.getLogger(OrderService.class);
     private final OrderRepository orderRepository;
     private final CustomerService customerService;
     private final String ID_REGEX = "[^0-9,]";
@@ -29,6 +33,8 @@ public class OrderService {
      */
     public void CreateOrder(Integer customerId) {
 
+        logger.debug("starting create order");
+
         try {
             Scanner scanner = new Scanner(System.in);
             while (customerService.getCustomerById(Long.valueOf(customerId)) == null || customerId == 0) {
@@ -40,7 +46,7 @@ public class OrderService {
             Long input = Long.valueOf(customerId);
 
             System.out.println("Введите ID товаров через запяту: ");
-            String prodID = scanner.next();
+            String prodID = scanner.next().trim();
             String[] prodIdArr = prodID.split(",");
 
             for (String id : prodIdArr) {
@@ -54,10 +60,11 @@ public class OrderService {
 
             orderRepository.create(input, prodIdArr);
 
+            logger.info("calling repository to create order");
 
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException |
                  NullPointerException e) {
-            System.out.println(e);
+            logger.warn(String.valueOf(e));
         }
 
     }
@@ -68,6 +75,9 @@ public class OrderService {
      * @return Список заказов в виде строк
      */
     public List<String> getAllOrders() {
+
+        logger.debug("getting all orders");
+
         for (String ordersStr : orderRepository.getAll()) {
 
             String[] ordersParts = ordersStr.split(";");
@@ -91,6 +101,8 @@ public class OrderService {
 
         }
 
+        logger.info("finish");
+
         return orderRepository.getAll();
     }
 
@@ -101,12 +113,14 @@ public class OrderService {
      */
     public String changeOrderStatus(String str) {
         try {
+            logger.debug("start changing status to: " + str);
+
             System.out.println("Введите ID заказа: ");
             Scanner sc = new Scanner(System.in);
             Long idOrder = sc.nextLong();
 
             if (idOrder > orderRepository.getAll().size()) {
-                System.out.println(new OrderNotFoundException("Заказ не найден"));
+                logger.warn(String.valueOf(new OrderNotFoundException("Заказ не найден")));
 
             } else {
 
@@ -124,9 +138,10 @@ public class OrderService {
                 }
             }
 
+            logger.info("changing status ended");
 
         } catch (InputMismatchException e) {
-            System.out.println(e);
+            logger.warn(String.valueOf(e));
         }
         return "";
     }

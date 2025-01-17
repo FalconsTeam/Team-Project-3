@@ -2,6 +2,8 @@ package Controller;
 
 import Model.Product.ProductType;
 import Service.ProductService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -9,6 +11,7 @@ import java.util.Scanner;
 public class ProductController {
     private final ProductService productService;
     private final String NAME_REGEX = "[\\s0-9]";
+    private final Logger logger = LoggerFactory.getLogger(ProductController.class);
 
     public ProductController(ProductService productService) {
         this.productService = productService;
@@ -41,7 +44,7 @@ public class ProductController {
                     if (name.isBlank()) {
                         name = scanner.nextLine();
                         while (name.replaceAll(NAME_REGEX, "").isBlank()) {
-                            System.out.println(new InputMismatchException("Неверный ввод"));
+                            logger.warn(String.valueOf(new InputMismatchException("Не верный ввод")));
                             System.out.println("Введите правильное имя товара: ");
                             name = scanner.nextLine();
                         }
@@ -55,40 +58,80 @@ public class ProductController {
 
                     switch (typeOfProduct) {
                         case "FOOD" -> {
-                            System.out.println("Введите цену за еденицу товара: ");
-                            Double price = Double.valueOf(scanner.next());
-                            productService.addProduct(name, ProductType.FOOD, price);
+                            try {
+
+                                System.out.println("Введите цену за еденицу товара: ");
+                                String price = scanner.next();
+                                while (price.replaceAll("[^0-9]", "").isBlank()) {
+                                    System.out.println("Введите цену за еденицу товара: ");
+                                    price = scanner.next();
+                                }
+                                productService.addProduct(name, ProductType.FOOD, Double.parseDouble(price));
+                            } catch (NumberFormatException e) {
+                                logger.warn(String.valueOf(e));
+                            }
                         }
                         case "ELECTRONICS" -> {
-                            System.out.println("Введите цену за еденицу товара: ");
-                            Double price = Double.valueOf(scanner.next());
-                            productService.addProduct(name, ProductType.ELECTRONICS, price);
+                            try {
+
+                                System.out.println("Введите цену за еденицу товара: ");
+                                String price = scanner.next();
+                                while (price.replaceAll("[^0-9]", "").isBlank()) {
+                                    System.out.println("Введите цену за еденицу товара: ");
+                                    price = scanner.next();
+                                }
+                                productService.addProduct(name, ProductType.ELECTRONICS, Double.parseDouble(price));
+                            } catch (NumberFormatException e) {
+                                logger.warn(String.valueOf(e));
+                            }
                         }
                         case "CLOTHING" -> {
-                            System.out.println("Введите цену за еденицу товара: ");
-                            Double price = Double.valueOf(scanner.next());
-                            productService.addProduct(name, ProductType.CLOTHING, price);
+                            try {
+
+                                System.out.println("Введите цену за еденицу товара: ");
+                                String price = scanner.next();
+                                while (price.replaceAll("[^0-9]", "").isBlank()) {
+                                    System.out.println("Введите цену за еденицу товара: ");
+                                    price = scanner.next();
+                                }
+                                productService.addProduct(name, ProductType.CLOTHING, Double.parseDouble(price));
+                            } catch (NumberFormatException e) {
+                                logger.warn(String.valueOf(e));
+                            }
                         }
                         default -> {
                             while (!(typeOfProduct.equalsIgnoreCase("FOOD") || typeOfProduct.equalsIgnoreCase(
                                     "ELECTRONICS") || typeOfProduct.equalsIgnoreCase("CLOTHING"))) {
-                                System.out.println(new InputMismatchException("Неверный ввод"));
+                                logger.warn(String.valueOf(new InputMismatchException("Не верный ввод")));
                                 typeOfProduct = scanner.nextLine().toUpperCase();
                             }
-                            System.out.println("Введите цену за еденицу товара: ");
-                            Double price = Double.valueOf(scanner.next());
-                            productService.addProduct(name, ProductType.valueOf(typeOfProduct), price);
+                            try {
+
+                                System.out.println("Введите цену за еденицу товара: ");
+                                String price = scanner.next();
+                                while (price.replaceAll("[^0-9]", "").isBlank()) {
+                                    System.out.println("Введите цену за еденицу товара: ");
+                                    price = scanner.next();
+                                }
+                                productService.addProduct(name, ProductType.valueOf(typeOfProduct), Double.parseDouble(price));
+                            } catch (NumberFormatException e) {
+                                logger.warn(String.valueOf(e));
+                            }
                         }
                     }
                 }
                 case "2" -> productService.getAllProducts();
                 case "3" -> {
-                    System.out.println("Введите ID товара: ");
-                    Integer inputID = scanner.nextInt();
-                    productService.getProductById(inputID);
+                    try {
+                        System.out.println("Введите ID товара: ");
+                        Integer inputID = scanner.nextInt();
+                        productService.getProductById(inputID);
+                    } catch (InputMismatchException e) {
+                        logger.warn(String.valueOf(e));
+                    }
                 }
                 case "4" -> new MainController().startController();
-                default -> System.out.println(new InputMismatchException("Неверный ввод"));
+                default -> logger.warn(String.valueOf(new InputMismatchException("Не верный ввод")));
             }
         }
     }

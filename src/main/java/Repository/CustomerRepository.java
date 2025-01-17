@@ -1,17 +1,19 @@
 package Repository;
 
 import Model.Customer.Customer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.List;
-import java.util.Objects;
+import java.util.NoSuchElementException;
 
 public class CustomerRepository {
 
+    private final Logger logger = LoggerFactory.getLogger(CustomerRepository.class);
     private final String fileName = "customers.txt";
     private final String fileIdPath = "C:\\Users\\User\\IdeaProjects\\Team-Project-\\files\\customers_id.txt";
     private final String filePath = "C:\\Users\\User\\IdeaProjects\\Team-Project-\\files\\" + fileName;
@@ -33,17 +35,53 @@ public class CustomerRepository {
      * @return Customer
      */
     public Customer add(Customer customer) {
+
         try {
-            Long id = setId().getLast().getId();
+            logger.debug("start add customer: " + customer);
+
             if (!Files.exists(pathId)) {
+
+                Long id = 1L;
+
                 Files.createFile(pathId);
+                Files.write(pathId, id.toString().getBytes());
+                customer.setId(id);
+                Files.write(path, (customer + "\n").getBytes(), StandardOpenOption.APPEND);
+
+                System.out.println("Покупатель добавлен, присвоен ID - " + customer.getId());
+
+                logger.info("customer added");
+
+            } else {
+                try {
+
+                    Long id = setId().getLast().getId();
+
+                    Files.write(pathId, id.toString().getBytes());
+                    customer.setId(++id);
+                    Files.write(path, (customer + "\n").getBytes(), StandardOpenOption.APPEND);
+
+                    System.out.println("Покупатель добавлен, присвоен ID - " + customer.getId());
+
+                    logger.info("customer added");
+
+                } catch (NoSuchElementException e) {
+
+                    Long id = 1L;
+
+                    Files.write(pathId, id.toString().getBytes());
+                    customer.setId(id);
+                    Files.write(path, (customer + "\n").getBytes(), StandardOpenOption.APPEND);
+
+                    System.out.println("Покупатель добавлен, присвоен ID - " + customer.getId());
+
+                    logger.info("customer added");
+
+                }
+
             }
-            Files.write(pathId, id.toString().getBytes());
-            customer.setId(++id);
-            Files.write(path, (customer + "\n").getBytes(), StandardOpenOption.APPEND);
-            System.out.println("Покупатель добавлен, присвоен ID - " + customer.getId());
         } catch (IOException e) {
-            System.out.println(e);
+            logger.warn(String.valueOf(e));
         }
         return customer;
     }
@@ -55,16 +93,18 @@ public class CustomerRepository {
      */
     public List<String> getAll() {
         try {
+            logger.debug("getting list of customers");
             return Files.readAllLines(path).stream()
                     .toList();
         } catch (IOException e) {
-            System.out.println(e);
+            logger.warn(String.valueOf(e));
             return null;
         }
     }
 
 
-    /**Делает из файла с покупателями List, после вызывает конструктор Customer от строк и List`a, и вобратно
+    /**
+     * Делает из файла с покупателями List, после вызывает конструктор Customer от строк и List`a, и вобратно
      * собирает в List
      *
      * @return List<>Customer</>

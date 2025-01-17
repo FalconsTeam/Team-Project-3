@@ -1,7 +1,10 @@
 package Controller;
 
 import Model.Customer.CustomerType;
+import Repository.CustomerRepository;
 import Service.CustomerService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -9,6 +12,7 @@ import java.util.Scanner;
 public class CustomerController {
     private final CustomerService customerService;
     private final String NAME_REGEX = "[^a-zA-Z]";
+    private final Logger logger = LoggerFactory.getLogger(CustomerController.class);
 
     public CustomerController(CustomerService customerService) {
         this.customerService = customerService;
@@ -20,7 +24,7 @@ public class CustomerController {
      *
      * @throws InputMismatchException выбрасывает сообщения для пользователся при не верном вводе
      */
-    public void start() throws InputMismatchException{
+    public void start() throws InputMismatchException {
         String name;
         String typeOfCustomer;
         String input;
@@ -59,7 +63,7 @@ public class CustomerController {
                         case "VIP" -> customerService.addCustomer(name, CustomerType.VIP);
                         default -> {
                             while (!(typeOfCustomer.equals("NEW") || typeOfCustomer.equals("REGULAR") || typeOfCustomer.equals("VIP"))) {
-                                System.out.println(new InputMismatchException("Не верный ввод"));
+                                logger.warn(String.valueOf(new InputMismatchException("Не верный ввод")));
                                 typeOfCustomer = scanner.nextLine().toUpperCase();
                             }
                             customerService.addCustomer(name, CustomerType.valueOf(typeOfCustomer));
@@ -68,16 +72,21 @@ public class CustomerController {
                 }
                 case "2" -> customerService.getAllCustomers();
                 case "3" -> {
-                    System.out.println("Введите ID покупателя: ");
-                    Long inputID = scanner.nextLong();
-                    if (Character.isLetter(Math.toIntExact(inputID))) {
-                        System.out.println(new InputMismatchException("Не верный ввод"));
-                        inputID = scanner.nextLong();
+                    try {
+
+                        System.out.println("Введите ID покупателя: ");
+                        Long inputID = scanner.nextLong();
+                        if (Character.isLetter(Math.toIntExact(inputID))) {
+                            logger.warn(String.valueOf(new InputMismatchException("Не верный ввод")));
+                            inputID = scanner.nextLong();
+                        }
+                        customerService.getCustomerById(inputID);
+                    } catch (InputMismatchException e) {
+                        logger.warn(String.valueOf(e));
                     }
-                    customerService.getCustomerById(inputID);
                 }
                 case "4" -> new MainController().startController();
-                default -> System.out.println(new InputMismatchException("Не верный ввод"));
+                default -> logger.warn(String.valueOf(new InputMismatchException("Не верный ввод")));
             }
         }
     }

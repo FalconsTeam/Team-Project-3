@@ -1,0 +1,5 @@
+2025-01-17 13:41:54 [main] WARN  Controller.MainController - java.util.InputMismatchException: Не верный ввод
+2025-01-17 13:41:55 [main] WARN  Controller.MainController - java.util.InputMismatchException: Не верный ввод
+2025-01-17 13:41:56 [main] WARN  Controller.MainController - java.util.InputMismatchException: Не верный ввод
+2025-01-17 14:04:31 [main] WARN  Controller.ProductController - java.util.InputMismatchException: Не верный ввод
+2025-01-17 14:04:35 [main] WARN  Controller.ProductController - java.util.InputMismatchException: Не верный ввод
