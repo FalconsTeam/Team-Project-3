@@ -1,16 +1,16 @@
 package Service;
 
+import Exception.ProductNotFoundException;
 import Model.Product.Product;
 import Model.Product.ProductType;
 import Repository.ProductRepository;
-import Exception.ProductNotFoundException;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
-import java.util.Map;
-import java.util.logging.Logger;
 
 public class ProductService {
     private final ProductRepository productRepository;
+    private final org.slf4j.Logger logger = LoggerFactory.getLogger(ProductService.class);
 
     public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
@@ -35,10 +35,12 @@ public class ProductService {
      * @return LinkedHashMap
      */
     public List<String> getAllProducts() {
+        logger.debug("start getting all products");
         if (productRepository.getAll().isEmpty()) {
             System.out.println("Список товаров пуст!");
         } else {
             productRepository.getAll().forEach(System.out::println);
+            logger.info("finish getting all products");
         }
         return productRepository.getAll();
     }
@@ -54,7 +56,7 @@ public class ProductService {
     public List getProductById(Integer id) {
 
         if (productRepository.getAll() == null || productRepository.getAll().size() < id) {
-            System.out.println(new ProductNotFoundException("Такого товара нет"));
+            logger.warn(String.valueOf(new ProductNotFoundException("Такого товара нет")));
             return null;
         } else {
             for (String str : productRepository.getAll()) {
@@ -66,7 +68,5 @@ public class ProductService {
             return productRepository.getAll();
         }
     }
-
-    private static final Logger log = Logger.getLogger(ProductService.class.getName());
 
 }

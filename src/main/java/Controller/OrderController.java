@@ -1,6 +1,8 @@
 package Controller;
 
 import Service.OrderService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -8,6 +10,7 @@ import java.util.Scanner;
 public class OrderController {
 
     private final OrderService orderService;
+    private final Logger logger = LoggerFactory.getLogger(OrderController.class);
 
 
     public OrderController(OrderService orderService) {
@@ -57,11 +60,11 @@ public class OrderController {
 
                         orderService.changeOrderStatus(input);
                         start();
-                    } while ((input = scanner.nextLine().toUpperCase()).isBlank());
+                    } while (scanner.nextLine().toUpperCase().isBlank());
                     start();
                 }
                 case "4" -> new MainController().startController();
-                default -> System.out.println(new InputMismatchException("Не верный ввод"));
+                default -> logger.warn(String.valueOf(new InputMismatchException("Не верный ввод")));
             }
         }
     }

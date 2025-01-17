@@ -6,11 +6,17 @@ import Repository.ProductRepository;
 import Service.CustomerService;
 import Service.OrderService;
 import Service.ProductService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class MainController {
+
+    private final Logger logger = LoggerFactory.getLogger(MainController.class);
+
+
     CustomerRepository customerRepository = new CustomerRepository();
     CustomerService customerService = new CustomerService(customerRepository);
     CustomerController customerController = new CustomerController(customerService);
@@ -42,7 +48,7 @@ public class MainController {
                 case "2" -> customerController.start();
                 case "3" -> orderController.start();
                 case "4" -> System.exit(0);
-                default -> System.out.println(new InputMismatchException("Не верный ввод"));
+                default -> logger.warn(String.valueOf(new InputMismatchException("Не верный ввод")));
             }
         }
     }
