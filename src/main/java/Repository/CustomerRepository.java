@@ -14,14 +14,15 @@ import java.util.NoSuchElementException;
 public class CustomerRepository {
 
     private final Logger logger = LoggerFactory.getLogger(CustomerRepository.class);
-    private final String fileName = "customers.txt";
-    private final String fileIdPath = "C:\\Users\\User\\IdeaProjects\\Team-Project-\\files\\customers_id.txt";
-    private final String filePath = "C:\\Users\\User\\IdeaProjects\\Team-Project-\\files\\" + fileName;
+
+    private final String fileIdPath;
+    private final String filePath;
     private Path path;
     private Path pathId;
-    private Customer customer;
 
-    public CustomerRepository() {
+    public CustomerRepository(String fileIdPath, String filePath) {
+        this.fileIdPath = fileIdPath;
+        this.filePath = filePath;
         path = Path.of(filePath);
         pathId = Path.of(fileIdPath);
     }

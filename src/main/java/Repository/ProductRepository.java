@@ -19,8 +19,8 @@ public class ProductRepository {
     private final Path path;
     private final Logger logger = LoggerFactory.getLogger(ProductRepository.class);
 
-    public ProductRepository() {
-        filePath = "C:\\Users\\User\\IdeaProjects\\Team-Project-\\files\\products.txt";
+    public ProductRepository(String filePath) {
+        this.filePath = filePath;
         path = Path.of(filePath);
     }
 

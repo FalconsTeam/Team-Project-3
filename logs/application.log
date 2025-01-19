@@ -1,5 +1,11 @@
-2025-01-17 13:41:54 [main] WARN  Controller.MainController - java.util.InputMismatchException: Не верный ввод
-2025-01-17 13:41:55 [main] WARN  Controller.MainController - java.util.InputMismatchException: Не верный ввод
-2025-01-17 13:41:56 [main] WARN  Controller.MainController - java.util.InputMismatchException: Не верный ввод
-2025-01-17 14:04:31 [main] WARN  Controller.ProductController - java.util.InputMismatchException: Не верный ввод
-2025-01-17 14:04:35 [main] WARN  Controller.ProductController - java.util.InputMismatchException: Не верный ввод
+2025-01-20 00:11:42 [main] INFO  Repository.CustomerRepository - customer added
+2025-01-20 00:14:09 [main] INFO  Repository.CustomerRepository - customer added
+2025-01-20 00:15:28 [main] INFO  Repository.CustomerRepository - customer added
+2025-01-20 00:15:47 [main] INFO  Repository.CustomerRepository - customer added
+2025-01-20 00:22:42 [main] INFO  Repository.CustomerRepository - customer added
+2025-01-20 00:22:42 [main] INFO  Service.CustomerService - added customer: 5;Oleg;VIP
+2025-01-20 00:24:51 [main] INFO  Repository.CustomerRepository - customer added
+2025-01-20 00:24:51 [main] INFO  Service.CustomerService - added customer: 6;Oleg;VIP
+2025-01-20 00:25:03 [main] INFO  Repository.CustomerRepository - customer added
+2025-01-20 00:25:03 [main] INFO  Service.CustomerService - added customer: 7;Oleg;VIP
+2025-01-20 01:28:49 [main] INFO  Service.CustomerService - finish getting customers

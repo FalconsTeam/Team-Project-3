@@ -1,0 +1,51 @@
+2025-01-18 09:44:42 [main] WARN  Controller.CustomerController - java.util.InputMismatchException: Не верный ввод
+2025-01-18 09:44:45 [main] DEBUG Service.CustomerService - getting all customers
+2025-01-18 09:44:45 [main] DEBUG Repository.CustomerRepository - getting list of customers
+2025-01-18 09:44:45 [main] DEBUG Repository.CustomerRepository - getting list of customers
+2025-01-18 09:44:45 [main] INFO  Service.CustomerService - finish getting customers
+2025-01-18 09:44:45 [main] DEBUG Repository.CustomerRepository - getting list of customers
+2025-01-18 10:19:22 [main] DEBUG Service.OrderService - starting create order
+2025-01-18 10:19:22 [main] DEBUG Service.CustomerService - finding customer by ID: 1
+2025-01-18 10:19:22 [main] DEBUG Repository.CustomerRepository - getting list of customers
+2025-01-18 10:19:22 [main] DEBUG Repository.CustomerRepository - getting list of customers
+2025-01-18 10:19:22 [main] DEBUG Repository.CustomerRepository - getting list of customers
+2025-01-18 10:19:22 [main] INFO  Service.CustomerService - finishing finding customer by ID: 1
+2025-01-18 10:19:22 [main] DEBUG Repository.CustomerRepository - getting list of customers
+2025-01-18 10:19:35 [main] WARN  Service.OrderService - java.lang.NumberFormatException: For input string: "sfgd"
+2025-01-18 10:20:24 [main] INFO  Service.CustomerService - finishing finding customer by ID: 1
+2025-01-18 10:20:37 [main] INFO  Repository.OrderRepository - finish creating order: 7;1;NEW;1,2,2
+2025-01-18 10:20:37 [main] INFO  Service.OrderService - calling repository to create order
+2025-01-18 10:33:50 [main] INFO  Service.CustomerService - finishing finding customer by ID: 1
+2025-01-18 10:33:55 [main] WARN  Service.OrderService - java.lang.NumberFormatException: For input string: "1.2"
+2025-01-18 10:37:17 [main] INFO  Service.CustomerService - finish getting customers
+2025-01-18 10:37:23 [main] INFO  Service.CustomerService - finishing finding customer by ID: 2
+2025-01-18 10:37:26 [main] WARN  Service.CustomerService - Exception.CustomerNotFoundException: Такого пользователя нет
+2025-01-18 11:37:53 [main] WARN  Controller.ProductController - java.util.InputMismatchException: Не верный ввод
+2025-01-18 11:38:10 [main] WARN  Controller.ProductController - java.util.InputMismatchException: Не верный ввод
+2025-01-18 11:38:23 [main] INFO  Repository.ProductRepository - added product: 3;apple;2.0;FOOD
+2025-01-18 11:38:29 [main] INFO  Service.ProductService - finish getting all products
+2025-01-18 11:38:40 [main] WARN  Service.ProductService - Exception.ProductNotFoundException: Такого товара нет
+2025-01-18 11:39:08 [main] INFO  Repository.CustomerRepository - customer added
+2025-01-18 11:39:08 [main] INFO  Service.CustomerService - added customer: 3;Gleb;NEW
+2025-01-18 11:39:16 [main] INFO  Service.CustomerService - finish getting customers
+2025-01-18 11:39:24 [main] WARN  Service.CustomerService - Exception.CustomerNotFoundException: Такого пользователя нет
+2025-01-18 11:39:31 [main] WARN  Controller.CustomerController - java.util.InputMismatchException
+2025-01-18 11:39:31 [main] WARN  Controller.CustomerController - java.util.InputMismatchException: Не верный ввод
+2025-01-18 11:39:36 [main] INFO  Service.CustomerService - finishing finding customer by ID: 2
+2025-01-18 11:39:44 [main] INFO  Service.CustomerService - finishing finding customer by ID: 1
+2025-01-18 11:39:44 [main] INFO  Service.CustomerService - finishing finding customer by ID: 1
+2025-01-18 11:39:44 [main] INFO  Service.CustomerService - finishing finding customer by ID: 2
+2025-01-18 11:39:44 [main] WARN  Service.CustomerService - Exception.CustomerNotFoundException: Такого пользователя нет
+2025-01-18 11:39:45 [main] INFO  Service.CustomerService - finishing finding customer by ID: 2
+2025-01-18 11:39:45 [main] INFO  Service.CustomerService - finishing finding customer by ID: 1
+2025-01-18 11:39:45 [main] INFO  Service.CustomerService - finishing finding customer by ID: 1
+2025-01-18 11:39:45 [main] INFO  Service.OrderService - finish
+2025-01-18 11:40:12 [main] WARN  Service.CustomerService - Exception.CustomerNotFoundException: Такого пользователя нет
+2025-01-18 11:40:17 [main] INFO  Service.CustomerService - finishing finding customer by ID: 2
+2025-01-18 11:40:33 [main] WARN  Service.OrderService - java.lang.NumberFormatException: For input string: "1.2"
+2025-01-18 11:40:39 [main] INFO  Service.CustomerService - finishing finding customer by ID: 1
+2025-01-18 11:40:46 [main] WARN  Service.OrderService - java.lang.NumberFormatException: For input string: "dfhsffhd"
+2025-01-18 11:40:54 [main] INFO  Service.CustomerService - finishing finding customer by ID: 1
+2025-01-18 11:40:56 [main] INFO  Repository.OrderRepository - finish creating order: 8;1;NEW;1,2
+2025-01-18 11:40:56 [main] INFO  Service.OrderService - calling repository to create order
+2025-01-18 11:41:24 [main] INFO  Repository.OrderRepository - new order status: COMPLETE

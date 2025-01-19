@@ -1,6 +1,5 @@
 package Service;
 
-import Controller.OrderController;
 import Exception.OrderNotFoundException;
 import Model.Order.OrderStatus;
 import Repository.CustomerRepository;
@@ -22,8 +21,8 @@ public class OrderService {
 
     public OrderService(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
-        this.customerService = new CustomerService(new CustomerRepository());
-        this.productService = new ProductService(new ProductRepository());
+        this.customerService = new CustomerService(new CustomerRepository("C:\\Users\\User\\IdeaProjects\\Team-Project-\\files\\customers_id.txt", "C:\\Users\\User\\IdeaProjects\\Team-Project-\\files\\customers.txt"));
+        this.productService = new ProductService(new ProductRepository("C:\\Users\\User\\IdeaProjects\\Team-Project-\\files\\products.txt"));
     }
 
 

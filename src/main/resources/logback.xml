@@ -31,7 +31,7 @@
 
     </appender>
 
-    <root level="debug">/ol
+    <root level="info">/ol
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE"/>
     </root>

@@ -17,15 +17,15 @@ public class MainController {
     private final Logger logger = LoggerFactory.getLogger(MainController.class);
 
 
-    CustomerRepository customerRepository = new CustomerRepository();
+    CustomerRepository customerRepository = new CustomerRepository("C:\\Users\\User\\IdeaProjects\\Team-Project-\\files\\customers_id.txt", "C:\\Users\\User\\IdeaProjects\\Team-Project-\\files\\customers.txt");
     CustomerService customerService = new CustomerService(customerRepository);
     CustomerController customerController = new CustomerController(customerService);
 
-    ProductRepository productRepository = new ProductRepository();
+    ProductRepository productRepository = new ProductRepository("C:\\Users\\User\\IdeaProjects\\Team-Project-\\files\\products.txt");
     ProductService productService = new ProductService(productRepository);
     ProductController productController = new ProductController(productService);
 
-    OrderRepository orderRepository = new OrderRepository();
+    OrderRepository orderRepository = new OrderRepository("C:\\Users\\User\\IdeaProjects\\Team-Project-\\files\\orders.txt");
     OrderService orderService = new OrderService(orderRepository);
     OrderController orderController = new OrderController(orderService);
 

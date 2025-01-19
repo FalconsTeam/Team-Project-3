@@ -1,0 +1,7 @@
+1;Gleb;NEW
+2;Gleb;NEW
+3;Gleb;NEW
+4;Gleb;NEW
+5;Oleg;VIP
+6;Oleg;VIP
+7;Oleg;VIP

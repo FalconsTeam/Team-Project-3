@@ -15,9 +15,10 @@ import java.util.NoSuchElementException;
 public class OrderRepository {
     private final Logger logger = LoggerFactory.getLogger(OrderRepository.class);
     private Path path;
-    private String filePath = "C:\\Users\\User\\IdeaProjects\\Team-Project-\\files\\orders.txt";
+    private String filePath;
 
-    public OrderRepository() {
+    public OrderRepository(String filePath) {
+        this.filePath = filePath;
         path = Path.of(filePath);
     }
 
